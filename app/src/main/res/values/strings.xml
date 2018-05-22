@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FestEc</string>
+    <string name="icons">&#xe6b8; &#xe630;</string>
+    <string name="icons1">&#xe630; &#xe6b8;</string>
 </resources>
