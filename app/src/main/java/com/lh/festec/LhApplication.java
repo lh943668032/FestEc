@@ -11,7 +11,7 @@ public class LhApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Lh.init(this)
-                .withApiHost("123")
+                .withApiHost("https://www.baidu.com/")
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
                 .configure();

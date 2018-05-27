@@ -12,8 +12,12 @@ public final class Lh {
         return Configurator.getInstance();
     }
 
-    private static HashMap<String,Object> getConfigurations(){
+    public static HashMap<String,Object> getConfigurations(){
         return Configurator.getInstance().getLhConfigs();
+    }
+
+    public static Context getApplication(){
+        return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
     }
 
 }
