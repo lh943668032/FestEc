@@ -1,9 +1,12 @@
 package com.lh.core.net;
 
+import android.content.Context;
+
 import com.lh.core.net.callback.IError;
 import com.lh.core.net.callback.IFailure;
 import com.lh.core.net.callback.IRequest;
 import com.lh.core.net.callback.ISuccess;
+import com.lh.core.ui.LoaderStyle;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -20,13 +23,15 @@ import retrofit2.Retrofit;
  */
 public class RestClientBuilder {
 
-    private String mUrl;
+    private String mUrl = null;
     private static final WeakHashMap<String,Object> PARAMS = RestCreator.getParams();
-    private IRequest mRequest;
-    private ISuccess mSuccess;
-    private IFailure mFailure;
-    private IError mError;
-    private RequestBody mBody;
+    private IRequest mRequest = null;
+    private ISuccess mSuccess = null;
+    private IFailure mFailure = null;
+    private IError mError = null;
+    private RequestBody mBody = null;
+    private Context mContext = null;
+    private LoaderStyle mLoaderStyle = null;
 
     RestClientBuilder(){
 
@@ -72,8 +77,20 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder  loader(Context context,LoaderStyle loaderStyle){
+        this.mContext = context;
+        this.mLoaderStyle = loaderStyle;
+        return this;
+    }
+
+    public final RestClientBuilder  loader(Context context){
+        this.mContext = context;
+        this.mLoaderStyle = LoaderStyle.BallClipRotatePulseIndicator;
+        return this;
+    }
+
     public final RestClient build(){
-        return new RestClient(mUrl,PARAMS,mRequest,mSuccess,mFailure,mError,mBody);
+        return new RestClient(mUrl,PARAMS,mRequest,mSuccess,mFailure,mError,mBody,mContext,mLoaderStyle);
     }
 
 }

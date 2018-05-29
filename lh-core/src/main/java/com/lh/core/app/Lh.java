@@ -16,7 +16,7 @@ public final class Lh {
         return Configurator.getInstance().getLhConfigs();
     }
 
-    public static Context getApplication(){
+    public static Context getApplicationContext(){
         return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
     }
 

@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
 //        Typeface iconfont = Typeface.createFromAsset(getAssets(), "iconfont.ttf");
         tv = findViewById(R.id.tv);
 //        tv.setTypeface(iconfont);
-//        testClient();
+        testClient();
     }
 
     private void testClient(){
@@ -60,15 +60,16 @@ public class MainActivity extends Activity {
 
         RestClient.builder()
                 .url("")
+                .loader(this)
 //                .params("","")
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(ResponseBody responseBody) {
-                        try {
-                            Toast.makeText(getApplicationContext(),responseBody.string(),Toast.LENGTH_SHORT).show();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            Toast.makeText(getApplicationContext(),responseBody.string(),Toast.LENGTH_SHORT).show();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
                     }
                 })
                 .failure(new IFailure() {
