@@ -32,47 +32,15 @@ import okhttp3.ResponseBody;
 
 public class MainActivity extends Activity {
 
-    int count = 5;
     public TextView tv;
-    public Animation animation;
-    public Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            tv.startAnimation(animation);
-        }
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        Typeface iconfont = Typeface.createFromAsset(getAssets(), "iconfont.ttf");
         tv = findViewById(R.id.tv);
-        tv.setText(count+" s");
 //        tv.setTypeface(iconfont);
 //        testClient();
-        animation = AnimationUtils.loadAnimation(this,R.anim.scale_anims);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                Log.d("lh", "onAnimationEnd: " + count);
-                if(--count > 0) {
-                    tv.setText(count + " s");
-                    mHandler.sendEmptyMessage(0);
-                }
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        tv.startAnimation(animation);
     }
 
     private void testClient(){
