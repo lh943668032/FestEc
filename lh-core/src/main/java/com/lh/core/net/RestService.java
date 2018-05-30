@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.WeakHashMap;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -27,9 +29,15 @@ public interface RestService {
     @POST
     Call<ResponseBody> post(@Url String url, @FieldMap WeakHashMap<String,Object> params);
 
+    @POST
+    Call<ResponseBody> postRaw(@Url String url, @Body RequestBody body);
+
     @FormUrlEncoded
     @PUT
     Call<ResponseBody> put(@Url String url, @FieldMap WeakHashMap<String,Object> params);
+
+    @PUT
+    Call<ResponseBody> putRaw(@Url String url, @Body RequestBody body);
 
     @DELETE
     Call<ResponseBody> delete(@Url String url,@QueryMap WeakHashMap<String,Object> params);

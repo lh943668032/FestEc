@@ -10,4 +10,6 @@ public interface ISuccess {
 
     void onSuccess(ResponseBody responseBody);
 
+    void onSuccess(String content);
+
 }

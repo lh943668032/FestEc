@@ -8,6 +8,7 @@ import com.lh.core.net.callback.IRequest;
 import com.lh.core.net.callback.ISuccess;
 import com.lh.core.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -25,11 +26,15 @@ public class RestClientBuilder {
 
     private String mUrl = null;
     private static final WeakHashMap<String,Object> PARAMS = RestCreator.getParams();
+    private String mDownloadDir = null;
+    private String mExtension = null;
+    private String mName = null;
     private IRequest mRequest = null;
     private ISuccess mSuccess = null;
     private IFailure mFailure = null;
     private IError mError = null;
     private RequestBody mBody = null;
+    private File mFile = null;
     private Context mContext = null;
     private LoaderStyle mLoaderStyle = null;
 
@@ -77,6 +82,17 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder file(File file){
+        this.mFile = file;
+        return this;
+    }
+
+    public final RestClientBuilder  file(String filePath){
+        this.mFile = new File(filePath);
+        return this;
+    }
+
+
     public final RestClientBuilder  loader(Context context,LoaderStyle loaderStyle){
         this.mContext = context;
         this.mLoaderStyle = loaderStyle;
@@ -89,8 +105,23 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder  dir(String downloadDir){
+        this.mDownloadDir = downloadDir;
+        return this;
+    }
+
+    public final RestClientBuilder  extension(String extension){
+        this.mExtension = extension;
+        return this;
+    }
+
+    public final RestClientBuilder  name(String name){
+        this.mName = name;
+        return this;
+    }
+
     public final RestClient build(){
-        return new RestClient(mUrl,PARAMS,mRequest,mSuccess,mFailure,mError,mBody,mContext,mLoaderStyle);
+        return new RestClient(mUrl,PARAMS,mDownloadDir,mExtension,mName,mRequest,mSuccess,mFailure,mError,mBody,mFile,mContext,mLoaderStyle);
     }
 
 }

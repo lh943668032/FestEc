@@ -1,4 +1,4 @@
-package com.lh.core.util;
+package com.lh.core.util.dimen;
 
 import android.content.res.Resources;
 import android.util.DisplayMetrics;

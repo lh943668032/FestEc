@@ -33,7 +33,9 @@ import okhttp3.ResponseBody;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "__lh__";
     public TextView tv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         testClient();
     }
 
-    private void testClient(){
+    private void testClient() {
 /*        OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
         Request request = new Request.Builder().url("").build();
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -72,18 +74,26 @@ public class MainActivity extends AppCompatActivity {
 //                            e.printStackTrace();
 //                        }
                     }
+                    @Override
+                    public void onSuccess(String content) {
+
+                    }
                 })
-                .failure(new IFailure() {
+                .failure(/*new IFailure() {
                     @Override
                     public void onFailure() {
 
                     }
+                }*/()->{
+                    Log.d(TAG, "onFailure: ");
                 })
-                .error(new IError() {
+                .error(/*new IError() {
                     @Override
                     public void onError(int code, String msg) {
-
+                        Log.d(TAG, "onError: ");
                     }
+                }*/(code,msg)->{
+                    Log.d(TAG, "onError: ");
                 })
                 .request(new IRequest() {
                     @Override
