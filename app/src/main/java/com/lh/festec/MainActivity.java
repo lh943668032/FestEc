@@ -15,13 +15,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lh.core.net.RestClient;
+import com.lh.core.net.RestCreator;
 import com.lh.core.net.callback.IError;
 import com.lh.core.net.callback.IFailure;
 import com.lh.core.net.callback.IRequest;
 import com.lh.core.net.callback.ISuccess;
 
 import java.io.IOException;
+import java.util.WeakHashMap;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -44,6 +53,44 @@ public class MainActivity extends AppCompatActivity {
         tv = findViewById(R.id.tv);
 //        tv.setTypeface(iconfont);
         testClient();
+        testRxjava();
+    }
+
+    //TODO: 测试方法
+    void testRxjava(){
+
+        String url = "";
+        final WeakHashMap<String,Object> params = new WeakHashMap<>();
+        final Observable<retrofit2.Response<ResponseBody>> observable = RestCreator.getRxRestService().get(url,params);
+                observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<retrofit2.Response<ResponseBody>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        
+                    }
+
+                    @Override
+                    public void onNext(retrofit2.Response<ResponseBody> responseBodyResponse) {
+                        Log.d(TAG, "onNext: code " + responseBodyResponse.code());
+                        try {
+                            Log.d(TAG, "onNext: " + responseBodyResponse.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
     }
 
     private void testClient() {

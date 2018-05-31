@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.lh.core.app.ConfigType;
 import com.lh.core.app.Lh;
+import com.lh.core.net.rx.RxRestService;
 
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
@@ -11,6 +12,7 @@ import java.util.prefs.BackingStoreException;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 public class RestCreator {
 
@@ -31,6 +33,7 @@ public class RestCreator {
         private static final Retrofit RETROFIT_CLIENT = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(OkHttpHolder.OKHTTP_CLIENT)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 //                .addConverterFactory(Rx)
                 .build();
     }
@@ -47,4 +50,12 @@ public class RestCreator {
                 RetrofitHolder.RETROFIT_CLIENT.create(RestService.class);
     }
 
+    private static final class RxRestServiceHolder{
+        private static final RxRestService RX_REST_SERVICE =
+                RetrofitHolder.RETROFIT_CLIENT.create(RxRestService.class);
+    }
+
+    public static RxRestService getRxRestService(){
+        return RxRestServiceHolder.RX_REST_SERVICE;
+    }
 }
