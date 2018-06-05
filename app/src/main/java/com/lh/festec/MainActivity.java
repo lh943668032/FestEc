@@ -1,62 +1,48 @@
 package com.lh.festec;
 
-import android.app.Activity;
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.lh.core.activities.ProxyActivity;
+import com.lh.core.fragments.StandardFragment;
 import com.lh.core.net.RestClient;
 import com.lh.core.net.RestCreator;
-import com.lh.core.net.callback.IError;
-import com.lh.core.net.callback.IFailure;
 import com.lh.core.net.callback.IRequest;
 import com.lh.core.net.callback.ISuccess;
+import com.lh.ec.launcher.LauncherFragment;
 
 import java.io.IOException;
 import java.util.WeakHashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ProxyActivity {
 
     private static final String TAG = "__lh__";
     public TextView tv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-//        Typeface iconfont = Typeface.createFromAsset(getAssets(), "iconfont.ttf");
-        tv = findViewById(R.id.tv);
-//        tv.setTypeface(iconfont);
-        testClient();
-        testRxjava();
+    public StandardFragment setRootFragment() {
+        return new LauncherFragment();
     }
 
-    //TODO: 测试方法
+//    @Override
+    //    protected void onCreate(Bundle savedInstanceState) {
+    //        super.onCreate(savedInstanceState);
+    //        setContentView(R.layout.activity_main);
+    ////        Typeface iconfont = Typeface.createFromAsset(getAssets(), "iconfont.ttf");
+    //        tv = findViewById(R.id.tv);
+    ////        tv.setTypeface(iconfont);
+    //        testClient();
+    //        testRxjava();
+    //    }
+    //
+    //    //TODO: 测试方法
     void testRxjava(){
 
         String url = "";
@@ -67,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(new Observer<retrofit2.Response<ResponseBody>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        
+
                     }
 
                     @Override

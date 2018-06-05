@@ -1,10 +1,11 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -24,14 +25,20 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
-    api 'com.android.support:appcompat-v7:22.2.1'
+    api 'com.android.support:appcompat-v7:27.1.1'
+    api 'com.android.support:support-v4:27.1.1'
+    //    api ('com.android.support:appcompat-v7:22.2.1', {
+    //        exclude group: 'com.android.support', module: 'design'
+    //    })
     testImplementation 'junit:junit:4.12'
     //noinspection GradleCompatible
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api project(':lh-annotations')
     //图标
-    api 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2'
+    api('com.joanzapata.iconify:android-iconify-ionicons:2.2.2') {
+        exclude module: 'support-v4'
+    }
     api 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
     //RxJava的依赖包
     //    api 'io.reactivex.rxjava2:rxjava:2.0.3'
@@ -44,4 +51,12 @@ dependencies {
     api 'io.reactivex.rxjava2:rxjava:2.1.14'
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
     api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    // To get SwipeBack feature, rely on both fragmentation & fragmentation-swipeback
+    api 'me.yokeyword:fragmentation:1.3.4'
+    // Swipeback is based on fragmentation. Refer to SwipeBackActivity/Fragment for your Customized SupportActivity/Fragment
+    api 'me.yokeyword:fragmentation-swipeback:1.3.4'
+    //ButterKnife
+    api 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    api 'com.alibaba:fastjson:1.2.47'
 }
