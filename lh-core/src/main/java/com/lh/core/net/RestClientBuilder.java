@@ -6,17 +6,14 @@ import com.lh.core.net.callback.IError;
 import com.lh.core.net.callback.IFailure;
 import com.lh.core.net.callback.IRequest;
 import com.lh.core.net.callback.ISuccess;
-import com.lh.core.ui.LoaderStyle;
+import com.lh.core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Retrofit;
 
 /**
  * @quthor lh

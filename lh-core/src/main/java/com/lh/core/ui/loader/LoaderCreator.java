@@ -1,4 +1,4 @@
-package com.lh.core.ui;
+package com.lh.core.ui.loader;
 
 import android.content.Context;
 

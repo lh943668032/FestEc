@@ -3,8 +3,8 @@ package com.lh.core.net.callback;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.lh.core.ui.LhLoader;
-import com.lh.core.ui.LoaderStyle;
+import com.lh.core.ui.loader.LhLoader;
+import com.lh.core.ui.loader.LoaderStyle;
 
 
 import okhttp3.ResponseBody;

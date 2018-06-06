@@ -6,6 +6,8 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import com.lh.core.fragments.StandardFragment;
+import com.lh.core.ui.launcher.ScrollLauncherTag;
+import com.lh.core.util.storage.LhPreference;
 import com.lh.core.util.timer.BaseTimerTask;
 import com.lh.core.util.timer.ITimerListener;
 import com.lh.ec.R;
@@ -28,7 +30,11 @@ public class LauncherFragment extends StandardFragment implements ITimerListener
 
     @OnClick(R2.id.tv_launcher_timer)
     void onClickTimerView(){
-
+        if(mTimer !=  null){
+            mTimer.cancel();
+            mTimer = null;
+            checkIsShowScroll();
+        }
     }
 
     private void initTimer(){
@@ -47,6 +53,15 @@ public class LauncherFragment extends StandardFragment implements ITimerListener
         initTimer();
     }
 
+    private void checkIsShowScroll(){
+        if(!LhPreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())){
+//            getSupportDelegate().start(new LauncherScrollFragment(),SINGLETASK);
+            startWithPop(new LauncherScrollFragment());
+        }else{
+            //检查用户是否登录了app
+        }
+    }
+
     @Override
     public void onTimer() {
         getProxyActivity().runOnUiThread(new Runnable() {
@@ -59,6 +74,7 @@ public class LauncherFragment extends StandardFragment implements ITimerListener
                         if(mTimer !=  null){
                             mTimer.cancel();
                             mTimer = null;
+                            checkIsShowScroll();
                         }
                     }
                 }

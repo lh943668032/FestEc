@@ -3,17 +3,9 @@ package com.lh.core.net.rx;
 import android.content.Context;
 
 import com.lh.core.net.HttpMethod;
-import com.lh.core.net.RestClientBuilder;
 import com.lh.core.net.RestCreator;
-import com.lh.core.net.RestService;
-import com.lh.core.net.callback.IError;
-import com.lh.core.net.callback.IFailure;
-import com.lh.core.net.callback.IRequest;
-import com.lh.core.net.callback.ISuccess;
-import com.lh.core.net.callback.RequestCallbacks;
-import com.lh.core.net.download.DownloadHandler;
-import com.lh.core.ui.LhLoader;
-import com.lh.core.ui.LoaderStyle;
+import com.lh.core.ui.loader.LhLoader;
+import com.lh.core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.WeakHashMap;
@@ -23,8 +15,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
