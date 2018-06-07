@@ -12,7 +12,7 @@ import com.lh.core.net.RestClient;
 import com.lh.core.net.RestCreator;
 import com.lh.core.net.callback.IRequest;
 import com.lh.core.net.callback.ISuccess;
-import com.lh.ec.launcher.LauncherFragment;
+import com.lh.ec.sign.SignUpFragment;
 
 import java.io.IOException;
 import java.util.WeakHashMap;
@@ -31,7 +31,7 @@ public class MainActivity extends ProxyActivity {
 
     @Override
     public StandardFragment setRootFragment() {
-        return new LauncherFragment();
+        return new SignUpFragment();
     }
 
     @Override

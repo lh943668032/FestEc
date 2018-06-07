@@ -10,9 +10,9 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.2'
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
-        configurations {
-            all*.exclude group: 'com.android.support', module: 'support-v13'
-        }
+//        configurations {
+//            all*.exclude group: 'com.android.support', module: 'support-v13'
+//        }
 //        configurations {
 //            all*.exclude group: 'com.android.support', module: 'support-v4'
 //        }
