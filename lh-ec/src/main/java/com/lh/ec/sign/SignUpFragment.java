@@ -3,16 +3,26 @@ package com.lh.ec.sign;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
 import com.lh.core.fragments.StandardFragment;
+import com.lh.core.net.RestClient;
+import com.lh.core.net.callback.IError;
+import com.lh.core.net.callback.IFailure;
+import com.lh.core.net.callback.IRequest;
+import com.lh.core.net.callback.ISuccess;
+import com.lh.core.util.log.LhLogger;
 import com.lh.ec.R;
 import com.lh.ec.R2;
 
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
 
 /**
  * @author lh
@@ -32,25 +42,62 @@ public class SignUpFragment extends StandardFragment {
     @BindView(R2.id.edit_sign_up_re_password)
     TextInputEditText mRePassword = null;
 
-    @OnClick(R2.id.btn_sidn_up)
+    @OnClick(R2.id.btn_sign_up)
     void onClickSignUp(){
         if(checkForm()){
-//            RestClient.builder()
-//                    .url("")
-//                    .params("","")
-//                    .success(new ISuccess() {
-//                        @Override
-//                        public void onSuccess(ResponseBody responseBody) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onSuccess(String content) {
-//
-//                        }
-//                    }).build().post();
+            RestClient.builder()
+                    .url("register")
+                    .params("","")
+                    .request(new IRequest() {
+                        @Override
+                        public void onRequestStart() {
+                            Log.d("USER_PROFILE", "onRequestStart: ");
+                        }
+
+                        @Override
+                        public void onRequestEnd() {
+                            Log.d("USER_PROFILE", "onRequestEnd: ");
+                        }
+                    })
+                    .failure(new IFailure() {
+                        @Override
+                        public void onFailure() {
+                            Log.d("USER_PROFILE", "onFailure: ");
+                        }
+                    })
+                    .error(new IError() {
+                        @Override
+                        public void onError(int code, String msg) {
+                            Log.d("USER_PROFILE", "onError: ");
+                        }
+                    })
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(ResponseBody responseBody) {
+                            Log.d("USER_PROFILE", "onSuccess: ");
+                            try {
+                                String content = responseBody.string();
+                                Log.d("USER_PROFILE", "onSuccess: "+content);
+                                LhLogger.json("USER_PROFILE",content);
+                            } catch (IOException e) {
+                                Log.d("USER_PROFILE",e.toString());
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                        @Override
+                        public void onSuccess(String content) {
+                            LhLogger.json("USER_PROFILE",content);
+                        }
+                    }).build().post();
             Toast.makeText(getContext(),"验证通过",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @OnClick(R2.id.tv_link_sign_in)
+    void onClickLink(){
+        start(new SignInFragment());
     }
 
     private boolean checkForm(){

@@ -63,4 +63,10 @@ dependencies {
     //banner
     api 'com.bigkoo:convenientbanner:2.0.5'
     api 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+    //GreenDao
+    api 'org.greenrobot:greendao:3.2.2'
+    api 'org.greenrobot:greendao-generator:3.2.2'
+    //logger
+    api 'com.orhanobut:logger:2.2.0'
+    api 'com.alibaba:fastjson:1.2.47'
 }

@@ -1,5 +1,6 @@
 package com.lh.festec;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -42,6 +43,12 @@ public class MainActivity extends ProxyActivity {
             actionBar.hide();
         }
 
+    }
+
+    //TODO
+    void test3(){
+        Intent intent = new Intent();
+        startActivity(intent);
     }
 
     //    @Override
