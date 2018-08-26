@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lh.core.activities.ProxyActivity;
 import com.lh.core.fragments.StandardFragment;
@@ -13,6 +14,12 @@ import com.lh.core.net.RestClient;
 import com.lh.core.net.RestCreator;
 import com.lh.core.net.callback.IRequest;
 import com.lh.core.net.callback.ISuccess;
+import com.lh.core.ui.launcher.ILauncherListener;
+import com.lh.core.ui.launcher.OnLauncherFinishTag;
+import com.lh.ec.launcher.LauncherFragment;
+import com.lh.ec.launcher.LauncherScrollFragment;
+import com.lh.ec.sign.ISignListener;
+import com.lh.ec.sign.SignInFragment;
 import com.lh.ec.sign.SignUpFragment;
 
 import java.io.IOException;
@@ -25,28 +32,28 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
-public class MainActivity extends ProxyActivity {
+public class MainActivity extends ProxyActivity implements ISignListener, ILauncherListener {
 
     private static final String TAG = "__lh__";
     public TextView tv;
 
     @Override
     public StandardFragment setRootFragment() {
-        return new SignUpFragment();
+        return new LauncherFragment();
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
+        if (actionBar != null) {
             actionBar.hide();
         }
 
     }
 
     //TODO
-    void test3(){
+    void test3() {
         Intent intent = new Intent();
         startActivity(intent);
     }
@@ -63,12 +70,12 @@ public class MainActivity extends ProxyActivity {
     //    }
     //
     //    //TODO: 测试方法
-    void testRxjava(){
+    void testRxjava() {
 
         String url = "";
-        final WeakHashMap<String,Object> params = new WeakHashMap<>();
-        final Observable<retrofit2.Response<ResponseBody>> observable = RestCreator.getRxRestService().get(url,params);
-                observable.subscribeOn(Schedulers.io())
+        final WeakHashMap<String, Object> params = new WeakHashMap<>();
+        final Observable<retrofit2.Response<ResponseBody>> observable = RestCreator.getRxRestService().get(url, params);
+        observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<retrofit2.Response<ResponseBody>>() {
                     @Override
@@ -127,6 +134,7 @@ public class MainActivity extends ProxyActivity {
 //                            e.printStackTrace();
 //                        }
                     }
+
                     @Override
                     public void onSuccess(String content) {
 
@@ -137,7 +145,7 @@ public class MainActivity extends ProxyActivity {
                     public void onFailure() {
 
                     }
-                }*/()->{
+                }*/() -> {
                     Log.d(TAG, "onFailure: ");
                 })
                 .error(/*new IError() {
@@ -145,7 +153,7 @@ public class MainActivity extends ProxyActivity {
                     public void onError(int code, String msg) {
                         Log.d(TAG, "onError: ");
                     }
-                }*/(code,msg)->{
+                }*/(code, msg) -> {
                     Log.d(TAG, "onError: ");
                 })
                 .request(new IRequest() {
@@ -159,5 +167,31 @@ public class MainActivity extends ProxyActivity {
 
                     }
                 }).build().get();
+    }
+
+    @Override
+    public void onSignInSuccess() {
+        Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSignUpSuccess() {
+        Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLauncherFinish(OnLauncherFinishTag tag) {
+        switch (tag) {
+            case SIGNED:
+                Toast.makeText(this,"启动结束，用户登录了",Toast.LENGTH_SHORT).show();
+                startWithPop(new ExampleFragment());
+                break;
+            case NOT_SIGNED:
+                Toast.makeText(this,"启动结束，用户没登录",Toast.LENGTH_SHORT).show();
+                startWithPop(new SignInFragment());
+                break;
+            default:
+                break;
+        }
     }
 }

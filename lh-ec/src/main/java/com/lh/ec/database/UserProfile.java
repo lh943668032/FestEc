@@ -12,7 +12,7 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity(nameInDb = "user_profile")
 public class UserProfile {
 
-    @Id
+    @Id(autoincrement = true)
     private long userId = 0;
     private String name = null;
     private String avatar = null;

@@ -1,5 +1,7 @@
 package com.lh.ec.sign;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -29,7 +31,7 @@ import okhttp3.ResponseBody;
  * @datetime 2018/6/7 23:56
  */
 
-public class SignUpFragment extends StandardFragment {
+public class SignUpFragment extends StandardFragment{
 
     @BindView(R2.id.edit_sign_up_name)
     TextInputEditText mName = null;
@@ -42,12 +44,25 @@ public class SignUpFragment extends StandardFragment {
     @BindView(R2.id.edit_sign_up_re_password)
     TextInputEditText mRePassword = null;
 
+    public ISignListener mISignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ISignListener){
+            mISignListener = (ISignListener) activity;
+        }
+    }
+
     @OnClick(R2.id.btn_sign_up)
     void onClickSignUp(){
         if(checkForm()){
             RestClient.builder()
                     .url("register")
-                    .params("","")
+                    .params("name",mName.getText().toString())
+                    .params("email",mEmail.getText().toString())
+                    .params("phone",mPhone.getText().toString())
+                    .params("password",mPassword.getText().toString())
                     .request(new IRequest() {
                         @Override
                         public void onRequestStart() {
@@ -68,7 +83,8 @@ public class SignUpFragment extends StandardFragment {
                     .error(new IError() {
                         @Override
                         public void onError(int code, String msg) {
-                            Log.d("USER_PROFILE", "onError: ");
+                            Log.d("USER_PROFILE", "onError: " + code);
+                            Log.d("USER_PROFILE", "onError: " + msg);
                         }
                     })
                     .success(new ISuccess() {
@@ -78,20 +94,19 @@ public class SignUpFragment extends StandardFragment {
                             try {
                                 String content = responseBody.string();
                                 Log.d("USER_PROFILE", "onSuccess: "+content);
-                                LhLogger.json("USER_PROFILE",content);
+//                                LhLogger.json("USER_PROFILE",content);
+                                SignHandler.onSignUp(content,mISignListener);
                             } catch (IOException e) {
                                 Log.d("USER_PROFILE",e.toString());
                                 e.printStackTrace();
                             }
-
                         }
-
                         @Override
                         public void onSuccess(String content) {
                             LhLogger.json("USER_PROFILE",content);
                         }
-                    }).build().post();
-            Toast.makeText(getContext(),"验证通过",Toast.LENGTH_SHORT).show();
+                    }).build().get();
+//            Toast.makeText(getContext(),"验证通过",Toast.LENGTH_SHORT).show();
         }
     }
 

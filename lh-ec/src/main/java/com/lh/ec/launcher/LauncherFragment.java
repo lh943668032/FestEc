@@ -1,11 +1,16 @@
 package com.lh.ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
+import com.lh.core.app.AccountManager;
+import com.lh.core.app.IUserChecker;
 import com.lh.core.fragments.StandardFragment;
+import com.lh.core.ui.launcher.ILauncherListener;
+import com.lh.core.ui.launcher.OnLauncherFinishTag;
 import com.lh.core.ui.launcher.ScrollLauncherTag;
 import com.lh.core.util.storage.LhPreference;
 import com.lh.core.util.timer.BaseTimerTask;
@@ -27,6 +32,16 @@ public class LauncherFragment extends StandardFragment implements ITimerListener
     private Timer mTimer = null;
 
     private int mCount = 5;
+
+    private ILauncherListener mILauncherListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ILauncherListener){
+            mILauncherListener = (ILauncherListener) activity;
+        }
+    }
 
     @OnClick(R2.id.tv_launcher_timer)
     void onClickTimerView(){
@@ -59,6 +74,21 @@ public class LauncherFragment extends StandardFragment implements ITimerListener
             startWithPop(new LauncherScrollFragment());
         }else{
             //检查用户是否登录了app
+            AccountManager.checkAccount(new IUserChecker() {
+                @Override
+                public void onSignIn() {
+                    if(mILauncherListener != null){
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.SIGNED);
+                    }
+                }
+
+                @Override
+                public void onNotSignIn() {
+                    if(mILauncherListener != null) {
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.NOT_SIGNED);
+                    }
+                }
+            });
         }
     }
 
