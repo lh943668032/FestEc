@@ -69,4 +69,5 @@ dependencies {
     //logger
     api 'com.orhanobut:logger:2.2.0'
     api 'com.alibaba:fastjson:1.2.47'
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 }

@@ -1,8 +1,15 @@
 apply plugin: 'java-library'
-
+apply plugin: 'idea'
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+tasks.withType(JavaCompile) {
+    compileTask -> compileTask.dependsOn tasks.findByName('idea')
+//解决编码问题
+        options.encoding = 'UTF-8'
 }
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+

@@ -1,1 +1,1 @@
-include ':app', ':lh-annotations', ':lh-compiler', ':lh-core', ':lh-annotations', ':lh-compiler', ':lh-core', ':lh-ec'
+include ':app', ':lh-annotations', ':lh-compiler', ':lh-core', ':lh-core', ':lh-ec'
