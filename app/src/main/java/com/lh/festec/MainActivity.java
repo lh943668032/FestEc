@@ -171,7 +171,7 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
 
     @Override
     public void onSignInSuccess() {
-        Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "登录成功了", Toast.LENGTH_SHORT).show();
     }
 
     @Override
