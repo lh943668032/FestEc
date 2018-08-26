@@ -154,7 +154,7 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
                         Log.d(TAG, "onError: ");
                     }
                 }*/(code, msg) -> {
-                    Log.d(TAG, "onError: ");
+                    Log.d(TAG, "onError:  ");
                 })
                 .request(new IRequest() {
                     @Override
