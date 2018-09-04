@@ -1,5 +1,7 @@
 package com.lh.core.app;
 
+import android.app.Activity;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -51,6 +53,21 @@ public class Configurator {
 
     public final Configurator withApiHost(String hostName){
         LH_CONFIGS.put(ConfigType.API_HOST.name(),hostName);
+        return this;
+    }
+
+    public final Configurator withWeChatAppId(String appid){
+        LH_CONFIGS.put(ConfigType.WE_CHAT_APP_ID.name(),appid);
+        return this;
+    }
+
+    public final Configurator withWeChatAppSecret(String secret){
+        LH_CONFIGS.put(ConfigType.WE_CHAT_APP_SECRET.name(),secret);
+        return this;
+    }
+
+    public final Configurator withActivity(Activity activity){
+        LH_CONFIGS.put(ConfigType.ACTIVITY.name(),activity);
         return this;
     }
 

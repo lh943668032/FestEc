@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lh.core.activities.ProxyActivity;
+import com.lh.core.app.Lh;
 import com.lh.core.fragments.StandardFragment;
 import com.lh.core.net.RestClient;
 import com.lh.core.net.RestCreator;
@@ -25,6 +26,7 @@ import com.lh.ec.sign.SignUpFragment;
 import java.io.IOException;
 import java.util.WeakHashMap;
 
+import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -49,6 +51,8 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        Lh.getConfigurator().withActivity(this);
 
     }
 
@@ -106,68 +110,68 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
 
     }
 
-    private void testClient() {
-/*        OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
-        Request request = new Request.Builder().url("").build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                ResponseBody responseBody = response.body();
-            }
-    });*/
-
-        RestClient.builder()
-                .url("")
-                .loader(this)
-//                .params("","")
-                .success(new ISuccess() {
-                    @Override
-                    public void onSuccess(ResponseBody responseBody) {
-//                        try {
-//                            Toast.makeText(getApplicationContext(),responseBody.string(),Toast.LENGTH_SHORT).show();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-                    }
-
-                    @Override
-                    public void onSuccess(String content) {
-
-                    }
-                })
-                .failure(/*new IFailure() {
-                    @Override
-                    public void onFailure() {
-
-                    }
-                }*/() -> {
-                    Log.d(TAG, "onFailure: ");
-                })
-                .error(/*new IError() {
-                    @Override
-                    public void onError(int code, String msg) {
-                        Log.d(TAG, "onError: ");
-                    }
-                }*/(code, msg) -> {
-                    Log.d(TAG, "onError:  ");
-                })
-                .request(new IRequest() {
-                    @Override
-                    public void onRequestStart() {
-
-                    }
-
-                    @Override
-                    public void onRequestEnd() {
-
-                    }
-                }).build().get();
-    }
+//    private void testClient() {
+///*        OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
+//        Request request = new Request.Builder().url("").build();
+//        okHttpClient.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                ResponseBody responseBody = response.body();
+//            }
+//    });*/
+//
+//        RestClient.builder()
+//                .url("")
+//                .loader(this)
+////                .params("","")
+//                .success(new ISuccess() {
+//                    @Override
+//                    public void onSuccess(ResponseBody responseBody) {
+////                        try {
+////                            Toast.makeText(getApplicationContext(),responseBody.string(),Toast.LENGTH_SHORT).show();
+////                        } catch (IOException e) {
+////                            e.printStackTrace();
+////                        }
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(String content) {
+//
+//                    }
+//                })
+//                .failure(/*new IFailure() {
+//                    @Override
+//                    public void onFailure() {
+//
+//                    }
+//                }*/() -> {
+//                    Log.d(TAG, "onFailure: ");
+//                })
+//                .error(/*new IError() {
+//                    @Override
+//                    public void onError(int code, String msg) {
+//                        Log.d(TAG, "onError: ");
+//                    }
+//                }*/(code, msg) -> {
+//                    Log.d(TAG, "onError:  ");
+//                })
+//                .request(new IRequest() {
+//                    @Override
+//                    public void onRequestStart() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onRequestEnd() {
+//
+//                    }
+//                }).build().get();
+//    }
 
     @Override
     public void onSignInSuccess() {

@@ -7,6 +7,7 @@ import android.view.View;
 import com.lh.core.fragments.StandardFragment;
 
 public class ExampleFragment extends StandardFragment {
+
     @Override
     public Object setLayout() {
         return R.layout.fragment_example;

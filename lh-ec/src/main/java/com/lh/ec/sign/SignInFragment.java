@@ -15,6 +15,8 @@ import com.lh.core.net.callback.IFailure;
 import com.lh.core.net.callback.IRequest;
 import com.lh.core.net.callback.ISuccess;
 import com.lh.core.util.log.LhLogger;
+import com.lh.core.wechat.LhWeChat;
+import com.lh.core.wechat.callbacks.IWeChatSignInCallback;
 import com.lh.ec.R;
 import com.lh.ec.R2;
 
@@ -101,7 +103,12 @@ public class SignInFragment extends StandardFragment {
 
     @OnClick(R2.id.icon_sign_in_we_chat)
     void onClickWeChat(){
+        LhWeChat.getInstance().setSignInCallback(new IWeChatSignInCallback() {
+            @Override
+            public void onSignInSuccess(String userInfo) {
 
+            }
+        }).signIn();
     }
 
     @OnClick(R2.id.tv_link_sign_up)

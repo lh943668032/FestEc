@@ -20,4 +20,12 @@ public final class Lh {
         return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
     }
 
+    public static Configurator getConfigurator(){
+        return Configurator.getInstance();
+    }
+
+    public static <T> T getConfiguration(Enum<ConfigType> key) {
+        return getConfigurator().getConfiguration(key);
+    }
+
 }

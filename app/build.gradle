@@ -11,19 +11,27 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+//    lintOptions {
+//        textReport true
+//        textOutput 'stdout'
+//    }
     buildTypes {
+        debug {
+//            minifyEnabled false
+        }
         release {
-//            lintOptions {
-//                checkReleaseBuilds false
-//                abortOnError false
-//            }
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
 //            minifyEnabed false
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_7
     }
 }
 
@@ -35,5 +43,5 @@ dependencies {
     //    implementation 'com.android.support:appcompat-v7:27.0.3'
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    compileOnly project(':lh-annotations')
+    implementation project(':lh-annotations')
 }

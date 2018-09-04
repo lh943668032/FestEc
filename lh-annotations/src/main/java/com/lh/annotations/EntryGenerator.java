@@ -15,9 +15,6 @@ import jdk.nashorn.internal.ir.annotations.Reference;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.SOURCE)
 public @interface EntryGenerator {
-
     String packageName();
-
-    Class<?> entryTemplete();
-
+    Class<?> entryTemplate();
 }

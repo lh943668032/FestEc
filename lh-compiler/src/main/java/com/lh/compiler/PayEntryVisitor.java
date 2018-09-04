@@ -11,47 +11,49 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.SimpleAnnotationValueVisitor7;
 
+
+
 /**
  * @author lh
  * @datetime 2018/8/26 23:47
  */
-public final class PayEntryVisitor extends SimpleAnnotationValueVisitor7{
+final class PayEntryVisitor extends SimpleAnnotationValueVisitor7<Void, Void> {
 
-    private Filer mFiler = null;
-    private TypeMirror mTypeMirror = null;
+    private final Filer FILER;
     private String mPackageName = null;
 
-    public void setFiler(Filer mFiler) {
-        this.mFiler = mFiler;
+    PayEntryVisitor(Filer FILER) {
+        this.FILER = FILER;
     }
 
     @Override
-    public Object visitString(String s, Object p) {
+    public Void visitString(String s, Void p) {
         mPackageName = s;
         return p;
     }
 
     @Override
-    public Object visitType(TypeMirror typeMirror, Object p) {
-        mTypeMirror = typeMirror;
+    public Void visitType(TypeMirror t, Void p) {
+        generateJavaCode(t);
         return p;
     }
 
-    private void generatorJavaCode(){
-        final TypeSpec targetActivity = TypeSpec
-                .classBuilder("WXPayEntryActivity")
-                .addModifiers(Modifier.PUBLIC)
-                .addModifiers(Modifier.FINAL)
-                .superclass(TypeName.get(mTypeMirror))
-                .build();
+    private void generateJavaCode(TypeMirror typeMirror) {
+        final TypeSpec targetActivity =
+                TypeSpec.classBuilder("WXPayEntryActivity")
+                        .addModifiers(Modifier.PUBLIC)
+                        .addModifiers(Modifier.FINAL)
+                        .superclass(TypeName.get(typeMirror))
+                        .build();
 
-        final JavaFile javaFile = JavaFile.builder(mPackageName+".wxapi",targetActivity)
+        final JavaFile javaFile = JavaFile.builder(mPackageName + ".wxapi", targetActivity)
                 .addFileComment("微信支付入口文件")
                 .build();
         try {
-            javaFile.writeTo(mFiler);
-        }catch (IOException e) {
+            javaFile.writeTo(FILER);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+
