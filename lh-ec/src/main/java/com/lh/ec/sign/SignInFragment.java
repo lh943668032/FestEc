@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputEditText;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Toast;
 
 import com.lh.core.fragments.StandardFragment;
 import com.lh.core.net.RestClient;
@@ -103,10 +104,11 @@ public class SignInFragment extends StandardFragment {
 
     @OnClick(R2.id.icon_sign_in_we_chat)
     void onClickWeChat(){
+        Toast.makeText(getContext(),"onClick",Toast.LENGTH_SHORT).show();
         LhWeChat.getInstance().setSignInCallback(new IWeChatSignInCallback() {
             @Override
             public void onSignInSuccess(String userInfo) {
-
+                Toast.makeText(getContext(),"success",Toast.LENGTH_SHORT).show();
             }
         }).signIn();
     }

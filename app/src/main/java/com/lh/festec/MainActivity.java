@@ -24,6 +24,7 @@ import com.lh.ec.sign.SignInFragment;
 import com.lh.ec.sign.SignUpFragment;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.WeakHashMap;
 
 import butterknife.BindView;
@@ -51,7 +52,7 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
         if (actionBar != null) {
             actionBar.hide();
         }
-
+        Arrays.sort(new int[]{1,2,3});
         Lh.getConfigurator().withActivity(this);
 
     }

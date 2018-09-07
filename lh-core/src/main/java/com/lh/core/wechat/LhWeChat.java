@@ -50,7 +50,7 @@ public class LhWeChat {
     public final void signIn(){
         final SendAuth.Req req = new SendAuth.Req();
         req.scope = "snsapi_userinfo";
-        req.state = "random_state";
+        req.state = "123";
         WXAPI.sendReq(req);
     }
 }

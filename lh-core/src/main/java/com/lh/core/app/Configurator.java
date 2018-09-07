@@ -9,22 +9,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.WeakHashMap;
 
+import okhttp3.Interceptor;
+
 import static com.lh.core.app.ConfigType.CONFIG_READY;
 import static com.lh.core.app.ConfigType.ICON;
 
 public class Configurator {
-    private static final HashMap<String,Object> LH_CONFIGS = new HashMap<>();
+    private static final HashMap<Object,Object> LH_CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Configurator(){
-        LH_CONFIGS.put(CONFIG_READY.name(),false);
+        LH_CONFIGS.put(CONFIG_READY,false);
     }
 
     public static Configurator getInstance(){
         return Holder.INSTANCE;
     }
 
-    final HashMap<String,Object> getLhConfigs(){
+    final HashMap<Object,Object> getLhConfigs(){
         return LH_CONFIGS;
     }
 
@@ -46,28 +49,40 @@ public class Configurator {
         return this;
     }
 
+    public final Configurator withInterceptor(Interceptor interceptor){
+        INTERCEPTORS.add(interceptor);
+        LH_CONFIGS.put(ConfigType.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withInterceptor(ArrayList<Interceptor> interceptors){
+        INTERCEPTORS.addAll(interceptors);
+        LH_CONFIGS.put(ConfigType.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
+
     public final void configure(){
         initIcons();
-        LH_CONFIGS.put(CONFIG_READY.name(),true);
+        LH_CONFIGS.put(CONFIG_READY,true);
     }
 
     public final Configurator withApiHost(String hostName){
-        LH_CONFIGS.put(ConfigType.API_HOST.name(),hostName);
+        LH_CONFIGS.put(ConfigType.API_HOST,hostName);
         return this;
     }
 
     public final Configurator withWeChatAppId(String appid){
-        LH_CONFIGS.put(ConfigType.WE_CHAT_APP_ID.name(),appid);
+        LH_CONFIGS.put(ConfigType.WE_CHAT_APP_ID,appid);
         return this;
     }
 
     public final Configurator withWeChatAppSecret(String secret){
-        LH_CONFIGS.put(ConfigType.WE_CHAT_APP_SECRET.name(),secret);
+        LH_CONFIGS.put(ConfigType.WE_CHAT_APP_SECRET,secret);
         return this;
     }
 
     public final Configurator withActivity(Activity activity){
-        LH_CONFIGS.put(ConfigType.ACTIVITY.name(),activity);
+        LH_CONFIGS.put(ConfigType.ACTIVITY,activity);
         return this;
     }
 
@@ -81,6 +96,6 @@ public class Configurator {
     @SuppressWarnings("unchecked")
     final <T> T getConfiguration(Enum<ConfigType> key){
         checkConfiguration();
-        return (T) LH_CONFIGS.get(key.name());
+        return (T) LH_CONFIGS.get(key);
     }
 }
