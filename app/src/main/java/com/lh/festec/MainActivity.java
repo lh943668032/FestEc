@@ -19,6 +19,7 @@ import com.lh.core.ui.launcher.ILauncherListener;
 import com.lh.core.ui.launcher.OnLauncherFinishTag;
 import com.lh.ec.launcher.LauncherFragment;
 import com.lh.ec.launcher.LauncherScrollFragment;
+import com.lh.ec.main.EcBottomFragment;
 import com.lh.ec.sign.ISignListener;
 import com.lh.ec.sign.SignInFragment;
 import com.lh.ec.sign.SignUpFragment;
@@ -52,7 +53,6 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
         if (actionBar != null) {
             actionBar.hide();
         }
-        Arrays.sort(new int[]{1,2,3});
         Lh.getConfigurator().withActivity(this);
 
     }
@@ -177,6 +177,7 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
     @Override
     public void onSignInSuccess() {
         Toast.makeText(this, "登录成功了", Toast.LENGTH_SHORT).show();
+        startWithPop(new EcBottomFragment());
     }
 
     @Override
@@ -189,7 +190,7 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
         switch (tag) {
             case SIGNED:
                 Toast.makeText(this,"启动结束，用户登录了",Toast.LENGTH_SHORT).show();
-                startWithPop(new ExampleFragment());
+                startWithPop(new EcBottomFragment());
                 break;
             case NOT_SIGNED:
                 Toast.makeText(this,"启动结束，用户没登录",Toast.LENGTH_SHORT).show();
